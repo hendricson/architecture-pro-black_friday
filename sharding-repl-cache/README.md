@@ -1,8 +1,8 @@
-## Задание 3. Репликация
+## Задание 4. Кеширование
 
 ### Шаг 1: Запустить контейнеры
 ```bash
-cd mongo-sharding-repl
+cd sharding-repl-cache
 docker compose up -d
 ```
 
@@ -20,7 +20,7 @@ curl http://localhost:8080/
 Система работает на `http://localhost:8080/`
 
 Количество документов в каждом из шардов (`collections.helloDoc.shards_count`) может отличаться, но в сумме должно получиться 1000. Также 
-указано количество реплик в каждом шарде (`shards_replicas`).
+указано количество реплик в каждом шарде (`shards_replicas`). Кэш включен (`"cache_enabled": true`).
 
 ```json
 {
@@ -55,9 +55,23 @@ curl http://localhost:8080/
         "shard1": 3,
         "shard2": 3
     },
-    "cache_enabled": false,
+    "cache_enabled": true,
     "status": "OK"
 }
+```
+
+### Проверка работы кэша
+
+Первый запрос
+```
+> curl -w "Time: %{time_total}s\n" -o /dev/null -s http://localhost:8080/helloDoc/users
+
+Time: 1.015077s
+
+> curl -w "Time: %{time_total}s\n" -o /dev/null -s http://localhost:8080/helloDoc/users
+
+Time: 0.073378s
+
 ```
 
 ### Доступные endpoints
@@ -66,7 +80,7 @@ curl http://localhost:8080/
 |-------|-----|----------|
 | GET | `/` | Статус системы (шарды, топология) |
 | GET | `/{collection}/count` | Количество документов в коллекции |
-| GET | `/{collection}/users` | Список всех пользователей (до 1000) |
+| GET | `/{collection}/users` | Список всех пользователей (до 1000) (**кешируется**) |
 | GET | `/{collection}/users/{name}` | Получить пользователя по имени |
 | POST | `/{collection}/users` | Создать нового пользователя |
 
@@ -84,6 +98,8 @@ curl http://localhost:8080/helloDoc/count
 | API | http://localhost:8080 |
 | Mongos 1 | localhost:27026 |
 | Mongos 2 | localhost:27027 |
+| Redis Master | localhost:6379 |
+| Redis Replica | localhost:6380 |
 
 ### Остановка приложения
 ```bash

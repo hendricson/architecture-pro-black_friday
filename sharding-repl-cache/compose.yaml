@@ -1,4 +1,4 @@
-name: mongo-sharding-repl
+name: sharding-repl-cache
 services:
   # ============================================
   # CONFIG SERVERS (Replica Set)
@@ -292,6 +292,44 @@ services:
       start_period: 10s
 
   # ============================================
+  # REDIS CACHE (Master-Replica)
+  # ============================================
+  redis_master:
+    container_name: redis_master
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.50
+    volumes:
+      - redis_master_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      start_period: 10s
+
+  redis_replica:
+    container_name: redis_replica
+    image: redis:latest
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.51
+    volumes:
+      - redis_replica_data:/data
+    command: ["redis-server", "--replicaof", "redis_master", "6379"]
+    depends_on:
+      - redis_master
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      start_period: 10s
+
+  # ============================================
   # API
   # ============================================
   pymongo-api:
@@ -308,8 +346,10 @@ services:
     environment:
       MONGODB_URL: "mongodb://mongos1:27026"
       MONGODB_DATABASE_NAME: "somedb"
+      REDIS_URL: "redis://redis_master:6379"
     depends_on:
       - mongos1
+      - redis_master
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/"]
       interval: 5s
@@ -336,3 +376,6 @@ volumes:
   shard2_primary_data:
   shard2_secondary1_data:
   shard2_secondary2_data:
+  # Redis
+  redis_master_data:
+  redis_replica_data:

@@ -156,5 +156,7 @@ echo "Доступные endpoints:"
 echo "  - API: http://localhost:8080"
 echo "  - Mongos 1: localhost:27026"
 echo "  - Mongos 2: localhost:27027"
+echo "  - Redis Master: localhost:6379"
+echo "  - Redis Replica: localhost:6380"
 echo ""
 

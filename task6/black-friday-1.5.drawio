@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.2.1">
   <diagram name="Black Friday v5 - CDN + Horizontal Scaling" id="black-friday-v5">
-    <mxGraphModel dx="1665" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="0">
+    <mxGraphModel dx="1537" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -20,7 +20,7 @@
           <mxGeometry height="50" width="25" x="257.5" y="87.5" as="geometry" />
         </mxCell>
         <mxCell id="cdn-label" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fillColor=#e6f2ff" value="CDN Edge Servers (PoP)" vertex="1">
-          <mxGeometry height="25" width="180" x="27.5" y="127.5" as="geometry" />
+          <mxGeometry height="25" width="180" x="27.5" y="112.5" as="geometry" />
         </mxCell>
         <mxCell id="cdn-eu" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=9;fontStyle=1" value="CDN Edge&#xa;Europe" vertex="1">
           <mxGeometry height="50" width="70" x="10" y="137.5" as="geometry" />

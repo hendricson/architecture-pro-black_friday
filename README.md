@@ -2,16 +2,6 @@
 
 Демо-проект: MongoDB sharding + репликация + Redis cache.
 
-## Структура проекта
-
-```
-├── sharding-repl-cache/    # MongoDB sharding + replication + Redis cache
-├── task7-10/               # Архитектурная документация
-└── scripts/                # Вспомогательные скрипты
-```
-
----
-
 ## Запуск системы
 
 ### Шаг 1: Запустить контейнеры
@@ -24,6 +14,8 @@ docker compose up -d
 ### Шаг 2: Инициализировать шардирование
 
 ```bash
+# Можно подождать пока всё поднимется
+sleep 30
 chmod +x init-sharding.sh
 ./init-sharding.sh
 ```

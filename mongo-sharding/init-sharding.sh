@@ -34,7 +34,7 @@ rs.initiate(
   }
 );
 EOF
-echo "✓ Config Server инициализирован"
+echo "OK: Config Server инициализирован"
 
 # ============================================
 # 2. Инициализация Shard 1
@@ -51,7 +51,7 @@ rs.initiate(
   }
 );
 EOF
-echo "✓ Shard 1 инициализирован"
+echo "OK: Shard 1 инициализирован"
 
 # ============================================
 # 3. Инициализация Shard 2
@@ -68,7 +68,7 @@ rs.initiate(
   }
 );
 EOF
-echo "✓ Shard 2 инициализирован"
+echo "OK: Shard 2 инициализирован"
 
 # Ждём, пока шарды будут готовы
 echo ""
@@ -84,7 +84,7 @@ docker compose exec -T mongos_router mongosh --port 27020 --quiet <<EOF
 sh.addShard("shard1/mongo-shard1:27018");
 sh.addShard("shard2/mongo-shard2:27019");
 EOF
-echo "✓ Шарды добавлены"
+echo "OK: Шарды добавлены"
 
 # ============================================
 # 5. Включение шардирования для БД
@@ -95,7 +95,7 @@ docker compose exec -T mongos_router mongosh --port 27020 --quiet <<EOF
 sh.enableSharding("somedb");
 sh.shardCollection("somedb.helloDoc", { "_id": "hashed" });
 EOF
-echo "✓ Шардирование включено"
+echo "OK: Шардирование включено"
 
 # ============================================
 # 6. Вставка тестовых данных
@@ -104,16 +104,18 @@ echo ""
 echo "6. Вставка 1000 тестовых документов..."
 docker compose exec -T mongos_router mongosh --port 27020 --quiet <<EOF
 use somedb;
-for(var i = 0; i < 1000; i++) {
-  db.helloDoc.insert({
+var docs = [];
+for (var i = 0; i < 1000; i++) {
+  docs.push({
     _id: i,
     age: i,
     name: "user_" + i,
     email: "user_" + i + "@example.com"
   });
 }
+db.helloDoc.insertMany(docs);
 EOF
-echo "✓ Тестовые данные вставлены"
+echo "OK: Тестовые данные вставлены"
 
 # ============================================
 # 7. Проверка распределения данных
@@ -143,7 +145,7 @@ EOF
 
 echo ""
 echo "=========================================="
-echo "✓ Инициализация завершена успешно!"
+echo "OK: Инициализация завершена"
 echo "=========================================="
 echo ""
 echo "Доступные endpoints:"

@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net" modified="2024-11-30T10:00:00.000Z" agent="Mozilla/5.0" version="22.1.0" type="device">
+  <diagram name="Migration Architecture" id="migration-arch">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Решение по миграции данных" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="500" y="30" width="400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Application -->
+        <mxCell id="app" value="Приложение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="100" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Cassandra Container -->
+        <mxCell id="cassandra-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;dashed=0" vertex="1" parent="1">
+          <mxGeometry x="100" y="220" width="500" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="cassandra-title" value="CASSANDRA&#xa;(Высокая частота записи, Eventual Consistency)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=#2D7600" vertex="1" parent="1">
+          <mxGeometry x="150" y="230" width="400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Sessions -->
+        <mxCell id="sessions" value="Сессии&#xa;&#xa;TTL: 24 часа&#xa;CL: ONE / ONE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="130" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Carts -->
+        <mxCell id="carts" value="Корзины&#xa;&#xa;TTL: 7 дней&#xa;CL: LOCAL_QUORUM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="285" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Order History -->
+        <mxCell id="order-history" value="История заказов&#xa;&#xa;Append-only&#xa;CL: QUORUM / ONE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="440" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Cassandra benefits -->
+        <mxCell id="cass-benefits" value="✓ Линейная масштабируемость&#xa;✓ Гео-распределение&#xa;✓ Нет resharding при масштабировании" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#2D7600" vertex="1" parent="1">
+          <mxGeometry x="130" y="400" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- MongoDB Container -->
+        <mxCell id="mongodb-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;dashed=0" vertex="1" parent="1">
+          <mxGeometry x="800" y="220" width="500" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="mongodb-title" value="MONGODB&#xa;(Strong Consistency, Транзакции)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=#990000" vertex="1" parent="1">
+          <mxGeometry x="850" y="230" width="400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Products -->
+        <mxCell id="products" value="Каталог товаров&#xa;&#xa;Сложные запросы&#xa;Поиск, фильтры" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="830" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Active Orders -->
+        <mxCell id="active-orders" value="Активные заказы&#xa;&#xa;Транзакции&#xa;Workflow статусов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="985" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Stock -->
+        <mxCell id="stock" value="Остатки на складе&#xa;&#xa;Атомарные операции&#xa;Защита от overselling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="1140" y="290" width="130" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- MongoDB benefits -->
+        <mxCell id="mongo-benefits" value="✓ ACID-транзакции&#xa;✓ Богатый язык запросов&#xa;✓ Strong consistency" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#990000" vertex="1" parent="1">
+          <mxGeometry x="830" y="400" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows from App -->
+        <mxCell id="arrow-to-cassandra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#82b366" edge="1" parent="1" source="app" target="cassandra-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-to-mongodb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#b85450" edge="1" parent="1" source="app" target="mongodb-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="540" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" value="Легенда" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="110" y="545" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-green" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366" vertex="1" parent="1">
+          <mxGeometry x="110" y="570" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-green-text" value="Cassandra — высокая частота записи, eventual consistency" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="140" y="570" width="350" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-red" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450" vertex="1" parent="1">
+          <mxGeometry x="110" y="595" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-red-text" value="MongoDB — транзакции, сложные запросы, strong consistency" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="140" y="595" width="350" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+

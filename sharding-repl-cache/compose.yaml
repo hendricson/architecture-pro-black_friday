@@ -334,9 +334,7 @@ services:
   # ============================================
   pymongo-api:
     container_name: pymongo-api
-    build:
-      context: api_app
-      dockerfile: Dockerfile
+    image: kazhem/pymongo_api:1.0.0
     restart: always
     ports:
       - "8080:8080"
